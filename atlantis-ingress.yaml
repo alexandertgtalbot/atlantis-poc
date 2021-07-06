@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: 'true'
+    ingress.kubernetes.io/proxy-body-size: '0'
+    ingress.kubernetes.io/proxy-read-timeout: '600'
+    ingress.kubernetes.io/proxy-send-timeout: '600'
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: '0'
+  name: atlantis
+  namespace: atlantis
+spec:
+  rules:
+    - host: atlantis.gtest.eu-west-1.dev-aws.skyott.com
+      http:
+        paths:
+          - backend:
+              serviceName: atlantis
+              servicePort: 80
+            path: /
+  tls:
+    - hosts:
+        - atlantis.gtest.eu-west-1.dev-aws.skyott.com
+
+

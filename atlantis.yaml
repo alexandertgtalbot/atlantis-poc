@@ -1,0 +1,39 @@
+version: 3
+automerge: true
+delete_source_branch_on_merge: true
+projects:
+- name: proj1
+  dir: ./proj1
+  workspace: proj1
+  terraform_version: v0.14.0
+  delete_source_branch_on_merge: true
+  autoplan:
+    when_modified: ["*.tf", "../modules/**.tf"]
+    enabled: true
+  apply_requirements: [mergeable, approved]
+  workflow: myworkflow
+- name: proj2
+  dir: ./proj2
+  workspace: proj2
+  terraform_version: v0.14.0
+  delete_source_branch_on_merge: true
+  autoplan:
+    when_modified: ["*.tf", "../modules/**.tf"]
+    enabled: true
+  apply_requirements: [mergeable, approved]
+  workflow: myworkflow
+workflows:
+  myworkflow:
+    plan:
+      steps:
+      - run: echo pre-init
+      - init
+      - run: echo pre-plan
+      - plan:
+          extra_args: ["-lock", "false"]
+      - run: echo post-plan
+    apply:
+      steps:
+      - run: echo pre-apply
+      - apply
+      - run: echo post-apply
