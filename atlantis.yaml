@@ -5,7 +5,7 @@ projects:
 - name: proj1
   dir: ./proj1
   workspace: proj1
-  terraform_version: v0.14.0
+  terraform_version: v0.14.1
   delete_source_branch_on_merge: true
   autoplan:
     when_modified: ["*.tf", "../modules/**.tf"]
@@ -14,7 +14,7 @@ projects:
 - name: proj2
   dir: ./proj2
   workspace: proj2
-  terraform_version: v0.14.0
+  terraform_version: v0.14.1
   delete_source_branch_on_merge: true
   autoplan:
     when_modified: ["*.tf", "../modules/**.tf"]
